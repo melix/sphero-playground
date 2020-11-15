@@ -1,0 +1,13 @@
+micronaut:
+  application:
+    name: spheroServer
+  server:
+    cors:
+      enabled: true
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/**"
+        paths: "classpath:public"
+kafka.bootstrap.servers: 192.168.86.40:32770

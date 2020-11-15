@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: me.champeau.sphero.server
+testFramework: spock
+sourceLanguage: kotlin
+buildTool: gradle
+features: [annotation-api, app-name, gradle, http-client, kafka, kafka-streams, kotlin, kotlin-application, logback, netty-server, readme, shade, spock, yaml]

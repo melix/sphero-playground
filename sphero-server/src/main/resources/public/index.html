@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <span>Couleur: {{ color }}</span>
+        <button v-on:click="color = '255,0,0'">Rouge</button>
+        <button v-on:click="color = '0,255,0'">Vert</button>
+        <button v-on:click="color = '0,0,255'">Bleu</button>
+        <button v-on:click="color = '' + Math.floor (Math.random () * 255) + ',' + Math.floor (Math.random () * 255) + ',' + Math.floor (Math.random () * 255)">Hasard</button>
+    </div>
+    <div>
+        <span>Vitesse: {{ speed }}</span>
+        <button v-on:click="speed = 0">STOP</button>
+        <button v-on:click="speed = 20">Lent</button>
+        <button v-on:click="speed = 30">Moyen</button>
+        <button v-on:click="speed = 60">Rapide</button>
+        <button v-on:click="speed = 80">Tres rapide</button>
+    </div>
+    <div>
+        <button v-on:click="angle -= 20">Gauche</button>
+        <button v-on:click="angle += 20">Droite</button>
+        <button v-on:click="angle += 180">Inverser</button>
+    </div>
+</div>
+<script>
+    axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+    axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+    var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue!',
+    color: '',
+    speed: '',
+    angle: 0
+  },
+  watch: {
+    color: function (newValue, oldValue) {
+        axios.post('http://192.168.86.40:8080/message', {
+            color: newValue
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    },
+    speed: function (newValue, oldValue) {
+        axios.post('http://192.168.86.40:8080/message', {
+            speed: newValue
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    },
+    angle: function(newValue, oldValue) {
+        axios.post('http://192.168.86.40:8080/message', {
+            angle: newValue % 360
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+  }
+})
+
+
+</script>
+</body>
+</html>
